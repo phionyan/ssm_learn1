@@ -24,5 +24,9 @@ public class User {
 		this.password = password;
 	}
 	
-	
+	@Override
+	public String toString() {
+		
+		return "用户名："+name+"\t密码："+password;
+	}
 }
