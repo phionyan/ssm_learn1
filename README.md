@@ -22,3 +22,21 @@
 *  新增com.martin.test包,在其中新增MybatisTest类用于数据库连接测试
 
 >ps:由于本地使用bootstrap，配置路径不熟悉，所有jsp暂且使用botstrap官网的在线资源，所以需要联网才能显示bootstrap样式
+
+
+##第六次提交改动（使用Pagehelper插件实现分页）
+
+* 修改applicationContext.xml配置文件，增加对PageHelper插件的支持46-57行
+
+* 修改UserController的代码
+```
+//		List<User> users = userService.list(page);
+		PageHelper.offsetPage(page.getStart(),5);
+		List<User> users = userService.list();
+		
+//		int total = userService.count();
+		int total = (int) new PageInfo<>(users).getTotal();
+		
+```
+
+

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.martin.pojo.User;
 import com.martin.service.UserService;
 import com.martin.util.Page;
@@ -40,8 +42,14 @@ public class UserController {
 	@RequestMapping("listSomeUser")
 	public ModelAndView listUser(Page page) {
 		ModelAndView mav = new ModelAndView();
-		List<User> users = userService.list(page);
-		int total = userService.count();
+		
+//		List<User> users = userService.list(page);
+		PageHelper.offsetPage(page.getStart(),5);
+		List<User> users = userService.list();
+		
+//		int total = userService.count();
+		int total = (int) new PageInfo<>(users).getTotal();
+		
 		page.caculateLast(total);
 		
 		//放入数据
