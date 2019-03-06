@@ -59,4 +59,37 @@ public class UserController {
 		
 		return mav;
 	}
+	@RequestMapping("addUser")
+	public ModelAndView addUser(User user) {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject(user);
+		mav.setViewName("redirect:/listSomeUser?");
+		
+		return mav;
+	}
+	
+	@RequestMapping("deleteUser")
+	public ModelAndView deleteUser(User user) {
+		ModelAndView mav = new ModelAndView();
+		userService.delete(user);
+		mav.setViewName("redirect:/listSomeUser");
+		return mav;
+	}
+	
+	@RequestMapping("editUser")
+	public ModelAndView editUser(User user) {
+		ModelAndView mav = new ModelAndView();
+		User u = userService.get(user.getId());
+		mav.addObject("u", u);
+		return mav;
+	}
+	@RequestMapping("updateUser")
+	public ModelAndView updateUser(User user) {
+		ModelAndView mav = new ModelAndView();
+		userService.update(user);
+		mav.setViewName("redirect:/listSomeUser");
+		return mav;
+	}
+
 }

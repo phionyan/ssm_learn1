@@ -14,7 +14,7 @@ import com.martin.util.Page;
 public class UserServiceImpl implements UserService{
 
 	@Autowired
-	UserMapper UserMapper;
+	UserMapper userMapper;
 	
 	@Override
 	/**
@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService{
 	 */
 	public List<User> list() {
 		
-		return UserMapper.listAll();
+		return userMapper.listAll();
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService{
 	 */
 	public int count() {
 		
-		return UserMapper.count();
+		return userMapper.count();
 	}
 
 	@Override
@@ -40,7 +40,30 @@ public class UserServiceImpl implements UserService{
 	 */
 	public List<User> list(Page page) {
 		
-		return UserMapper.list(page);
+		return userMapper.list(page);
 	}
-	
+
+	@Override
+	public void add(User user) {
+		userMapper.add(user);
+	}
+
+	@Override
+	/**
+	 * 删除用户
+	 */
+	public void update(User user) {
+		userMapper.update(user);
+	}
+
+	@Override
+	public void delete(User user) {
+		userMapper.delete(user.getId());
+	}
+
+	@Override
+	public User get(int id) {
+		User user = userMapper.get(id);
+		return user;
+	}	
 }

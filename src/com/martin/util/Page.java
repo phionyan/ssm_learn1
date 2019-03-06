@@ -37,4 +37,9 @@ public class Page {
             last = total - total % count;   
 	}
 	
+	@Override
+	public String toString() {
+		return "start:"+start+"   count:"+count;
+	}
+	
 }
