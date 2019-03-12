@@ -1,12 +1,16 @@
 package com.martin.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.martin.pojo.User;
@@ -91,5 +95,38 @@ public class UserController {
 		mav.setViewName("redirect:/listSomeUser");
 		return mav;
 	}
+	
+	@ResponseBody
+    @RequestMapping("/submitUser")
+    public String submitUser(@RequestBody User user) {
+        System.out.println("SSM接受到浏览器提交的json，并转换为User对象:"+user);
+        return "ok";
+    }
+     
+    @ResponseBody
+    @RequestMapping("/getOneUser")
+    public String getOneUser() {
+         User user = new User();
+         user.setId(10);
+         user.setName("第10个用戶");
+         user.setPassword("123456");
+         JSONObject json= new JSONObject();
+         json.put("user", JSONObject.toJSON(user));
+         return json.toJSONString();
+    }
+    @ResponseBody
+    @RequestMapping("/getManyUser")
+    public String getManyUser() {
+        List<User> users = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            User user = new User();
+            user.setId(i);
+            user.setName("用戶名称:"+i);
+            user.setPassword("123456");
+            users.add(user);
+        }
+ 
+        return JSONObject.toJSON(users).toString();
+    }
 
 }
